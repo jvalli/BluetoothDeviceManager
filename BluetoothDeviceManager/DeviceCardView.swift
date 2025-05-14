@@ -15,7 +15,7 @@ public struct DeviceCardView: View {
     @State var connecting: Bool = false
     
     public var body: some View {
-        FlipExpandView(
+        FlipCardView(
             front: {
                 front
             },
@@ -71,7 +71,8 @@ public struct DeviceCardView: View {
                             }
                         } label: {
                             Image(systemName: device.state == .connected ? "link.circle" : "link")
-                               .foregroundColor(.white)
+                               .foregroundColor(.yellow)
+                               .font(.system(size: 28))
                         }
                         .buttonStyle(.borderless)
                     }
@@ -93,10 +94,10 @@ public struct DeviceCardView: View {
         ZStack {
             // Image placeholder
             Rectangle()
-                .fill(Color.blue.opacity(0.5))
+                .fill(Color.background.opacity(0.6))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .cornerRadius(20)
-            VStack {
+            VStack(spacing: 30) {
                 Text("Do you want to delete the device '\(device.name)'?")
                     .font(.title2)
                 Button {
@@ -106,15 +107,10 @@ public struct DeviceCardView: View {
                 } label: {
                     Image(systemName: "trash")
                         .foregroundColor(.red)
-                        .frame(width: 60, height: 60)
+                        .font(.system(size: 44))
                 }
             }
         }
-        .rotation3DEffect(
-            .degrees(180),
-            axis: (x: 0.0, y: 1.0, z: 0.0),
-            perspective: 0.5
-        )
     }
     
     @ViewBuilder
@@ -122,12 +118,12 @@ public struct DeviceCardView: View {
         GeometryReader { geometry in
             ZStack {
                 Rectangle()
-                    .foregroundColor(.blue.opacity(0.5))
+                    .foregroundColor(.background.opacity(0.6))
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .frame(width: geometry.size.width / 2, height: geometry.size.height * 1.2)
                     .foregroundStyle(
                         LinearGradient(
-                            gradient: Gradient(colors: [.green.opacity(0.75), .white.opacity(0.75)]),
+                            gradient: Gradient(colors: [.white.opacity(0.6), .white.opacity(0.6)]),
                             startPoint: .top,
                             endPoint: .bottom)
                     )

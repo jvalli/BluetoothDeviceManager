@@ -20,40 +20,32 @@ struct BluetoothScannerView: View {
         NavigationStack {
             VStack {
                 ScrollView(.vertical) {
-                    ForEach(bluetoothManager.discoveredDevices, id: \.identifier) { peripheral in
-                        Button(action: {
-                            saveDevice(peripheral: peripheral)
-                            dismiss()
-                        }) {
-                            VStack(alignment: .leading) {
-                                Text(peripheral.name ?? "Unknown Device")
-                                    .font(.headline)
-                                Text(peripheral.identifier.uuidString)
-                                    .font(.subheadline)
-                                if let rssi = bluetoothManager.rssiValues[peripheral.identifier] {
-                                    Text("Signal: \(rssi) dBm")
-                                        .font(.caption)
+                    VStack {
+                        ForEach(bluetoothManager.discoveredDevices, id: \.identifier) { peripheral in
+                            ScannedDeviceView(peripheral: peripheral)
+                                .environmentObject(bluetoothManager)
+                                .scrollTransition { content, phase in
+                                    content
+                                        .opacity(phase.isIdentity ? 1.0 : 0.5)
+                                        .scaleEffect(phase.isIdentity ? 1.0 : 0.3)
                                 }
-                            }
-                            .padding(15)
-                        }
-                        .frame(maxWidth: .infinity)
-                        .background {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.5))
-                                .cornerRadius(10)
                         }
                     }
+                    .scrollTargetLayout()
                 }
                 .contentMargins(.top, 20, for: .scrollContent)
                 .contentMargins(.horizontal, 20.0, for: .scrollContent)
                 .contentMargins(.bottom, 20, for: .scrollContent)
+                .scrollTargetBehavior(.viewAligned)
             }
             .navigationTitle("Discover Devices")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(isScanning ? "Stop" : "Scan") {
+                    Button(action: {
                         toggleScan()
+                    }) {
+                        Text(isScanning ? "Stop" : "Scan")
+                            .foregroundStyle(.white)
                     }
                 }
             }
@@ -81,8 +73,8 @@ struct BluetoothScannerView: View {
             }
             .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
             .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarColorScheme(.light, for: .navigationBar)
-            .toolbarBackground(.white, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackground(Color.background, for: .navigationBar)
         }
     }
     

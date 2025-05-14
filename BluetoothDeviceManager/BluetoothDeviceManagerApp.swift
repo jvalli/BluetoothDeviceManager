@@ -10,6 +10,7 @@ import SwiftData
 
 @main
 struct BluetoothDeviceManagerApp: App {
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             BluetoothDevice.self,

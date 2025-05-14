@@ -1,5 +1,5 @@
 //
-//  FlipExpandView.swift
+//  FlipCardView.swift
 //  BluetoothDeviceManager
 //
 //  Created by Jerónimo Valli on 5/12/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FlipExpandView<Front: View, Back: View>: View {
+struct FlipCardView<Front: View, Back: View>: View {
     var front: () -> Front
     var back: () -> Back
     var flipDuration: Double = 0.4
@@ -22,10 +22,13 @@ struct FlipExpandView<Front: View, Back: View>: View {
                     front()
                         .opacity(flipAngle < 90 ? 1 : 0)
                 } else {
-                    ZStack(alignment: .topTrailing) {
-                        back()
-                    }
-                    .opacity(flipAngle > 90 ? 1 : 0)
+                    back()
+                        .opacity(flipAngle > 90 ? 1 : 0)
+                        .rotation3DEffect(
+                            .degrees(180),
+                            axis: (x: 0.0, y: 1.0, z: 0.0),
+                            perspective: 0.5
+                        )
                 }
             }
             .rotation3DEffect(

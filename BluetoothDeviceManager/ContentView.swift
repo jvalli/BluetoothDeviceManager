@@ -9,6 +9,10 @@ import SwiftUI
 import SwiftData
 import CoreBluetooth
 
+public extension Color {
+    static let background = Color(red: 62.0/255.0, green: 132.0/255.0, blue: 110.0/255.0)
+}
+
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \BluetoothDevice.lastSeen, order: .reverse) private var devices: [BluetoothDevice]
@@ -31,7 +35,7 @@ struct ContentView: View {
                                         .scaleEffect(phase.isIdentity ? 1.0 : 0.95)
                                         .offset(x: phase.isIdentity ? 0 : 8)
                                 }
-                                .shadow(color: .blue.opacity(0.8), radius: 8, x: 5, y: 10)
+                                .shadow(color: .background.opacity(0.8), radius: 8, x: 5, y: 10)
                         }
                     }
                     .scrollTargetLayout()
@@ -62,8 +66,8 @@ struct ContentView: View {
             }
             .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
             .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarColorScheme(.light, for: .navigationBar)
-            .toolbarBackground(.white, for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackground(Color.background, for: .navigationBar)
         }
     }
 }
