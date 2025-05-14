@@ -1,158 +1,126 @@
-#Overview
+# Overview
 Bluetooth Device Manager is a SwiftUI application that allows users to:
 
-Discover nearby Bluetooth Low Energy (BLE) devices
-
-Save discovered devices to persistent storage
-
-Manage a list of saved Bluetooth devices
-
-Connect to and interact with saved devices
+- Discover nearby Bluetooth Low Energy (BLE) devices
+- Save discovered devices to persistent storage
+- Manage a list of saved Bluetooth devices
+- Connect to and interact with saved devices
 
 The app leverages CoreBluetooth for device discovery and connection, and SwiftData for persistent storage of device information.
 
-#Features
-##1. Device Discovery
-Scan for nearby BLE devices in real-time
+# Features
 
-View device names, UUIDs, and signal strength (RSSI)
+## 1. Device Discovery
 
-Pull-to-refresh functionality for manual scanning
+- Scan for nearby BLE devices in real-time
+- View device names, UUIDs, and signal strength (RSSI)
+- Pull-to-refresh functionality for manual scanning
 
-##2. Device Management
-Save discovered devices to persistent storage
+## 2. Device Management
 
-View saved devices with detailed information (name, UUID, signal strength, last seen)
+- Save discovered devices to persistent storage
+- View saved devices with detailed information (name, UUID, signal strength, last seen)
+- Delete devices with swipe-to-delete gesture
+- Sort devices by last seen timestamp
 
-Delete devices with swipe-to-delete gesture
+## 3. Device Connection
 
-Sort devices by last seen timestamp
+- One-tap connection to saved devices
+- Visual connection status indicator
+- Manual disconnect option
+- Automatic service discovery after connection
 
-##3. Device Connection
-One-tap connection to saved devices
+## 4. User Interface
+- Clean, intuitive SwiftUI interface
+- Status bar showing current connection state
+- Visual feedback for all operations
+- Empty state views when no devices are available
 
-Visual connection status indicator
+# Technical Implementation
 
-Manual disconnect option
+## Architecture
 
-Automatic service discovery after connection
+- MVVM Pattern: Using ObservableObject for Bluetooth management
+- SwiftData: For persistent storage of device information
+- CoreBluetooth: For all Bluetooth operations
 
-##4. User Interface
-Clean, intuitive SwiftUI interface
+## Key Components
 
-Status bar showing current connection state
+- BluetoothDevice Model: Stores device information
+  - UUID, name, RSSI, last seen timestamp
+- BluetoothManager: Handles all Bluetooth operations
+  - Scanning, connecting, disconnecting
+  - Service and characteristic discovery
+- ContentView: Main device list view
+- BluetoothScannerView: Device discovery view
 
-Visual feedback for all operations
+# Requirements
 
-Empty state views when no devices are available
+- iOS 17.0+ (for SwiftData support)
+- Xcode 15+
+- Physical iOS device (Bluetooth doesn't work on simulator)
+- Bluetooth permission in Info.plist
 
-#Technical Implementation
-##Architecture
-MVVM Pattern: Using ObservableObject for Bluetooth management
+# Installation
 
-SwiftData: For persistent storage of device information
+- Clone the repository
+- Open the project in Xcode 15+
+- Build and run on a physical iOS device
 
-CoreBluetooth: For all Bluetooth operations
+# Usage Instructions
 
-##Key Components
-BluetoothDevice Model: Stores device information
+## Discovering Devices
 
-UUID, name, RSSI, last seen timestamp
+- Tap the "+" button in the main view
+- The app will automatically start scanning
+- View discovered devices in the list
+- Tap any device to save it to your collection
 
-BluetoothManager: Handles all Bluetooth operations
+## Managing Devices
 
-Scanning, connecting, disconnecting
+- Save a device: Tap any device in the scanner view
+- Delete a device: Swipe left on a device in the main list
+- Refresh the list: Pull down on the device list
 
-Service and characteristic discovery
+## Connecting to Devices
 
-ContentView: Main device list view
+- Tap the connection icon (link) next to any device
+- View connection status in the status bar at the top
+- Tap "Disconnect" to terminate the connection
 
-BluetoothScannerView: Device discovery view
+## Permissions
 
-#Requirements
-iOS 17.0+ (for SwiftData support)
-
-Xcode 15+
-
-Physical iOS device (Bluetooth doesn't work on simulator)
-
-Bluetooth permission in Info.plist
-
-#Installation
-Clone the repository
-
-Open the project in Xcode 15+
-
-Build and run on a physical iOS device
-
-Usage Instructions
-Discovering Devices
-Tap the "+" button in the main view
-
-The app will automatically start scanning
-
-View discovered devices in the list
-
-Tap any device to save it to your collection
-
-Managing Devices
-Save a device: Tap any device in the scanner view
-
-Delete a device: Swipe left on a device in the main list
-
-Refresh the list: Pull down on the device list
-
-Connecting to Devices
-Tap the connection icon (link) next to any device
-
-View connection status in the status bar at the top
-
-Tap "Disconnect" to terminate the connection
-
-Permissions
 The app requires the following permissions which are automatically configured:
 
-xml
+```xml
 <key>NSBluetoothAlwaysUsageDescription</key>
 <string>This app needs Bluetooth access to discover nearby devices</string>
 <key>NSBluetoothPeripheralUsageDescription</key>
 <string>This app needs Bluetooth access to discover nearby devices</string>
-Known Limitations
-Bluetooth on Simulator: The iOS simulator doesn't support Bluetooth, so testing requires a physical device
+```
 
-Background Operation: The app doesn't currently support background Bluetooth operations
+# Known Limitations
 
-Service Interaction: While the app discovers services and characteristics, it doesn't yet include specific service interaction
+- Bluetooth on Simulator: The iOS simulator doesn't support Bluetooth, so testing requires a physical device
+- Background Operation: The app doesn't currently support background Bluetooth operations
+- Service Interaction: While the app discovers services and characteristics, it doesn't yet include specific service interaction
 
-Future Enhancements
-Add ability to interact with specific services/characteristics
+# Future Enhancements
 
-Implement background Bluetooth operations
+- Add ability to interact with specific services/characteristics
+- Implement background Bluetooth operations
+- Add device grouping/categorization
+- Include more detailed connection statistics
+- Add support for Bluetooth device configuration
 
-Add device grouping/categorization
+# Dependencies
 
-Include more detailed connection statistics
+- SwiftUI
+- CoreBluetooth framework
+- SwiftData (iOS 17+)
 
-Add support for Bluetooth device configuration
-
-Dependencies
-SwiftUI
-
-CoreBluetooth framework
-
-SwiftData (iOS 17+)
-
-Screenshots
-[Would include actual screenshots in a real README]
-
-Main device list view
-
-Device scanner view
-
-Connection status view
-
-Support
+# Support
 For issues or feature requests, please open an issue in the GitHub repository.
 
-License
+# License
 MIT License - Free for use and modification with attribution.
