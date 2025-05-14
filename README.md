@@ -20,7 +20,7 @@ The app leverages CoreBluetooth for device discovery and connection, and SwiftDa
 
 - Save discovered devices to persistent storage
 - View saved devices with detailed information (name, UUID, signal strength, last seen)
-- Delete devices with swipe-to-delete gesture
+- Tap the cards to turn 180 and delete device
 - Sort devices by last seen timestamp
 
 ## 3. Device Connection
@@ -79,7 +79,7 @@ The app leverages CoreBluetooth for device discovery and connection, and SwiftDa
 ## Managing Devices
 
 - Save a device: Tap any device in the scanner view
-- Delete a device: Swipe left on a device in the main list
+- Delete a device: Tap the cards to turn 180 and delete device from main list
 - Refresh the list: Pull down on the device list
 
 ## Connecting to Devices
