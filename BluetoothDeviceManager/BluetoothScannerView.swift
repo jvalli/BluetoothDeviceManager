@@ -102,7 +102,7 @@ struct BluetoothScannerView: View {
             uuid: peripheral.identifier.uuidString,
             rssi: bluetoothManager.rssiValues[peripheral.identifier] ?? 0,
             lastSeen: Date(),
-            connected: false
+            state: .disconnected
         )
         modelContext.insert(device)
     }

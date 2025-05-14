@@ -20,18 +20,21 @@ struct ContentView: View {
         NavigationStack {
             VStack {
                 ScrollView(.vertical) {
-                    ForEach(devices) { device in
-                        DeviceCardView(device: device)
-                            .environmentObject(bluetoothManager)
-                            .containerRelativeFrame(.vertical, count: 1, spacing: 1)
-                            .scrollTransition { content, phase in
-                                content
-                                    .opacity(phase.isIdentity ? 1.0 : 0.5)
-                                    .scaleEffect(phase.isIdentity ? 1.0 : 0.95)
-                                    .offset(x: phase.isIdentity ? 0 : 8)
-                            }
-                            .shadow(color: .blue.opacity(0.8), radius: 8, x: 5, y: 10)
+                    LazyVStack {
+                        ForEach(devices) { device in
+                            DeviceCardView(device: device)
+                                .environmentObject(bluetoothManager)
+                                .containerRelativeFrame(.vertical, count: 1, spacing: 1)
+                                .scrollTransition { content, phase in
+                                    content
+                                        .opacity(phase.isIdentity ? 1.0 : 0.5)
+                                        .scaleEffect(phase.isIdentity ? 1.0 : 0.95)
+                                        .offset(x: phase.isIdentity ? 0 : 8)
+                                }
+                                .shadow(color: .blue.opacity(0.8), radius: 8, x: 5, y: 10)
+                        }
                     }
+                    .scrollTargetLayout()
                 }
                 .scrollTargetBehavior(.viewAligned)
                 .scrollIndicators(.hidden)
@@ -61,12 +64,6 @@ struct ContentView: View {
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbarColorScheme(.light, for: .navigationBar)
             .toolbarBackground(.white, for: .navigationBar)
-        }
-    }
-    
-    private func deleteDevices(offsets: IndexSet) {
-        for index in offsets {
-            modelContext.delete(devices[index])
         }
     }
 }
